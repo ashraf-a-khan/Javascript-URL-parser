@@ -1,5 +1,4 @@
-# turbo-octo-tribble
-Using javascript to parse any URL 
+# Using javascript to parse any URL 
 
 Use Javascript to parse a URL address entered into a textbox into its component parts (protocol, port, domain and subdomain, path, and a list of parameters – both parameter name and values). The URL entered should be displayed as a clickable link (use the (<a> tag, and href attribute, though you may need to add information if the URL is not already well-formed.) (Use the Javascript to create the table. You will probably want to create helper methods such as writeCell (an individual data item preceded by <td> and followed by </td>), writeRow (write several cells based on the passed arguments – preceded by <tr> and followed by </tr>). For example, if the following URL is typed into the textbox
 
