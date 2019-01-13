@@ -1,0 +1,419 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+
+<h2 align="center">Table of Parsed Elements</h2>
+
+
+
+<style>
+body{
+  
+  background-image: url("https://i.ytimg.com/vi/VpxBTgbeMsw/maxresdefault.jpg");
+   
+
+}
+table {
+    font-family: verdana, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+h2{
+	font-family: verdana, sans-serif;
+
+}
+
+</style>
+</head>
+<body>
+ 
+
+
+  Enter the website to parse: <input type="text" id="myTest" name="fname">
+
+<button onclick = "myFunParse()">Submit for parsing</button>
+</form>
+<br>
+<br>
+
+<table id="myTable">
+  <tr>
+    <th>Description</th>
+    <th>Entry</th>
+    <th>Additional Information</th>
+    <th>Source</th>
+  </tr>
+  <tr>
+    <td>Protocol</td>
+    <td><p id = "demoprotocol"></p></td>
+    <td><p id = "demoProtoFull"></p></td>
+    <td><p id = "demoProVal"></p></td>
+  </tr>
+  <tr>
+    <td>port</td>
+    <td><p id = "demoPort"></p></td>
+    <td></td>
+    <td><p id = "demoPortVal"></p></td>
+  </tr>
+  <tr>
+    <td>Full Address</td>
+    <td><p id = "demoFullAddress"></p></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Top-Level Domain</td>
+    <td><p id="demoTopleveldomain"></p></td>
+    <td></td>
+    <td><p id = "demoTopLevDomVar"></p></td>
+  </tr>
+  <tr>
+    <td>Domain name</td>
+    <td><p id= "demoDomain"></p></td>
+    <td></td>
+    <td><p id = "demoDomVar"></p></td>
+  </tr>
+  <tr>
+    <td>Subdomain Name</td>
+    <td><p id = "demoSubdomain"></p></td>
+    <td></td>
+    <td><p id = "demoSubDomVar"></p></td>
+  </tr>
+  
+  <tr>
+    <td>Path</td>
+    <td><p id = "demoPath"> </p></td>
+    <td></td>
+    <td><p id = "demoPathVar"> </p></td>
+  </tr>
+  <tr>
+    <td>Parameter #1</td>
+    <td><p id = "demoParam1"></p></td>
+    <td><p id = "demoParam1.1"></p></td>
+    <td><p id = "demoParam1Var"> </p></td>
+  </tr>
+  <tr>
+    <td>Paramenter #2</td>
+    <td><p id = "demoParam2"></p></td>
+    <td><p id = "demoParam2.1"></p></td>
+    <td><p id = "demoParam2Var"> </p></td>
+  </tr>
+  <tr>
+    <td>Parameter #3</td>
+    <td><p id = "demoParam3"></p></td>
+    <td><p id = "demoParam3.1"></p></td>
+    <td><p id = "demoParam3Var"> </p></td>
+  </tr>
+  <tr>
+    <td>Parameter #4</td>
+    <td><p id = "demoParam4"></p></td>
+    <td><p id = "demoParam4.1"></p></td>
+    <td><p id = "demoParam4Var"> </p></td>
+  </tr>
+  <tr>
+    <td>Parameter #5</td>
+    <td><p id = "demoParam5"></p></td>
+    <td><p id = "demoParam5.1"></p></td>
+    <td><p id = "demoParam5Var"> </p></td>
+  </tr>
+  <tr>
+    <td>Parameter #6</td>
+    <td><p id = "demoParam6"></p></td>
+    <td><p id = "demoParam6.1"></p></td>
+    <td><p id = "demoParam6Var"> </p></td>
+  </tr>
+</table>
+
+
+
+<script type="text/javascript">
+
+function myFunParse(){
+ const myURL = new URL(document.getElementById("myTest").value);
+
+document.getElementById("myTest").value
+console.log(myURL.host);
+port = myURL.port;
+protocol = myURL.protocol;
+hostname = myURL.host;
+//console.log(myURL.search);
+parameter =myURL.search;
+pathname = myURL.pathname;
+
+
+
+portlen=port.length;
+
+if(portlen=='0' && myURL.protocol.length>'6'){
+pt = (pathname.split(/~(.+)/)[0])
+ps= pt.split("/")[0];
+port = ps;
+}
+
+var portVal = "Provided";
+
+if(portlen=='0' && myURL.protocol.length=='5'){
+port=80;
+portVal = 'default';
+}
+if(portlen=='0' && myURL.protocol.length=='6'){
+port=443;
+portVal = 'default';
+}
+
+document.getElementById("demoPortVal").innerHTML = portVal;
+
+console.log("port is "+port);
+
+document.getElementById("demoPort").innerHTML = port;
+
+
+
+hostnamelen=hostname.length;
+
+if(hostnamelen=='0'){
+hostname=(myURL.protocol.split(":"))[0];
+
+}
+if(hostnamelen>'1'){
+hostname=(myURL.host.split(":"))[0];
+}
+
+console.log("full address is "+hostname);
+
+document.getElementById("demoFullAddress").innerHTML = hostname;
+
+var as = hostname.split(".");
+if(as.length<'2'){
+console.log("error");
+}
+
+if(as.length=='2'){
+
+var TopLevDomVar = "Provided";
+
+document.getElementById("demoTopLevDomVar").innerHTML = TopLevDomVar;
+
+
+var DomVar = "Provided";
+
+document.getElementById("demoDomVar").innerHTML = DomVar;
+
+var subDomainVar = "Default";
+
+document.getElementById("demoSubdomain").innerHTML = "www";
+
+document.getElementById("demoSubDomVar").innerHTML = subDomainVar;
+
+
+document.getElementById("demoTopleveldomain").innerHTML = as[as.length-1];
+
+document.getElementById("demoDomain").innerHTML = as[as.length-2]+"."+as[as.length-1];
+
+}
+
+
+if(as.length>'2'){
+
+var j;
+console.log("topleveldomain is "+as[as.length-1]);
+var TopLevDomVar = "Provided";
+
+document.getElementById("demoTopleveldomain").innerHTML = as[as.length-1];
+
+document.getElementById("demoTopLevDomVar").innerHTML = TopLevDomVar;
+
+var subDomainVar = "Provided";
+document.getElementById("demoSubDomVar").innerHTML = subDomainVar;
+
+console.log("domain is "+as[as.length-2]+"."+as[as.length-1]);
+
+document.getElementById("demoDomain").innerHTML = as[as.length-2]+"."+as[as.length-1];
+appendstring='';
+
+var DomVar = "Provided";
+
+document.getElementById("demoDomVar").innerHTML = DomVar;
+
+
+
+for (j = 0; j <= as.length-3; j++) { 
+    appendstring+=as[j]+".";
+}
+var z = appendstring.substring(0, appendstring.length - 1);
+console.log(z);
+
+document.getElementById("demoSubdomain").innerHTML = z;
+}
+
+
+
+protocollen=protocol.length;
+var proVal = "provided";
+if(protocollen>'6'){
+protocol='http:';
+proVal = 'default';
+}
+if(protocollen>'6' && port=='443'){
+protocol='https:';
+proVal = 'default';
+}
+var p = protocol.split(":");
+
+document.getElementById("demoProVal").innerHTML =  proVal;
+
+
+
+console.log("protocol is "+p[0]);
+var a = " ";
+ if(p[0]=='http'){
+a = "hyper text transfer protocol";
+ }
+ if(p[0]=='https'){
+a = "hyper text transfer protocol Secure";
+ }
+  if(p[0]=='ftp'){
+a = "file transfer protocol";
+ }
+  if(p[0]=='smtp'){
+a = "simple mail transfer protocol";
+ }
+
+document.getElementById("demoProtoFull").innerHTML =  a;
+
+
+document.getElementById("demoprotocol").innerHTML = p[0];
+parameterlen=parameter.length;
+if(parameterlen=='0' && myURL.protocol.length>'6'){
+parameter=myURL.protocol;
+}
+
+var ps = parameter.split(/[&=]/);
+var paramVar = "Provided";
+
+
+
+var m;
+if (ps.length<=1){
+document.getElementById("demoParam1").innerHTML = "";
+
+document.getElementById("demoParam2").innerHTML = "";
+
+document.getElementById("demoParam3").innerHTML = "";
+
+
+document.getElementById("demoParam4").innerHTML = "";
+
+document.getElementById("demoParam5").innerHTML = "";
+
+document.getElementById("demoParam6").innerHTML = "";
+
+document.getElementById("demoParam1.1").innerHTML = "";
+
+document.getElementById("demoParam2.1").innerHTML = "";
+
+document.getElementById("demoParam3.1").innerHTML = "";
+
+
+document.getElementById("demoParam4.1").innerHTML = "";
+
+
+document.getElementById("demoParam5.1").innerHTML = "";
+
+
+document.getElementById("demoParam6.1").innerHTML = "";
+
+
+
+}
+for ( m = 1; m <= ps.length-1 ; m+=2){
+
+
+console.log("value is "+ps[m]);
+
+document.getElementById("demoParam1").innerHTML = ps[0].substr(1);
+
+document.getElementById("demoParam2").innerHTML = ps[2];
+
+document.getElementById("demoParam3").innerHTML = ps[4];
+
+
+document.getElementById("demoParam4").innerHTML = ps[6];
+
+
+document.getElementById("demoParam5").innerHTML = ps[8];
+
+
+document.getElementById("demoParam6").innerHTML = ps[10];
+
+document.getElementById("demoParam1.1").innerHTML = "Value is "+ps[1];
+
+document.getElementById("demoParam2.1").innerHTML = "Value is "+ps[3];
+
+document.getElementById("demoParam3.1").innerHTML = "Value is "+ps[5];
+
+
+document.getElementById("demoParam4.1").innerHTML = "Value is "+ps[7];
+
+document.getElementById("demoParam5.1").innerHTML = "Value is "+ps[9];
+
+document.getElementById("demoParam6.1").innerHTML = "Value is "+ps[11];
+
+
+}
+pt = (pathname.split(/~(.+)/)[1])
+
+appendpath="~";
+appendpath+=pt;
+var pathVar = "Provided";
+if(appendpath=='~undefined'){
+appendpath='index.html';
+pathVar = "Default";
+}
+console.log("pathname is "+appendpath);
+
+document.getElementById("demoPathVar").innerHTML = pathVar;
+
+
+document.getElementById("demoPath").innerHTML = appendpath;
+
+
+
+
+
+if(as.length<=1){
+console.log("Bad URL");
+document.getElementById("demoFullAddress").innerHTML ="<label>Invalid URL</label>";
+document.getElementById("demoPortVal").innerHTML = "Invalid URL";
+document.getElementById("demoProVal").innerHTML = "Invalid URL";
+document.getElementById("demoprotocol").innerHTML = "Invalid URL";
+document.getElementById("demoProtoFull").innerHTML = "Invalid URL";
+document.getElementById("demoPort").innerHTML = "Invalid URL";
+document.getElementById("demoPortVal").innerHTML = "Invalid URL";
+document.getElementById("demoFullAddress").innerHTML = "Invalid URL";
+document.getElementById("demoTopleveldomain").innerHTML = "Invalid URL";
+document.getElementById("demoTopLevDomVar").innerHTML = "Invalid URL";
+document.getElementById("demoDomain").innerHTML = "Invalid URL";
+document.getElementById("demoDomVar").innerHTML = "Invalid URL";
+document.getElementById("demoSubDomVar").innerHTML = "Invalid URL";
+document.getElementById("demoPath").innerHTML = "Invalid URL";
+document.getElementById("demoPathVar").innerHTML = "Invalid URL";
+document.getElementById("demoSubdomain").innerHTML = "Invalid URL";
+
+
+}
+
+}
+</script>
+
+</body>
+</html>
